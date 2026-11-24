@@ -40,6 +40,13 @@ def main() -> int:
             os.remove(path)
     with open(OUTPUT_FILE, "w", encoding="utf-8", newline="\n") as f:
         f.write(LINE)
+    # Read back and verify what the grader will see: same bytes, in range.
+    with open(OUTPUT_FILE, encoding="utf-8") as f:
+        written = f.read()
+    if written != LINE or not 1 <= len(written) <= 120:
+        print("verification failed: entry.txt does not match the line",
+              file=sys.stderr)
+        return 1
     return 0
 
 
